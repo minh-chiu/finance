@@ -5,9 +5,19 @@ export default defineNuxtConfig({
   },
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@nuxt/eslint"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@nuxt/eslint",
+    "@nuxt/icon",
+    "@nuxtjs/color-mode",
+  ],
   shadcn: {
     prefix: "",
     componentDir: "./app/components/ui",
   },
+  colorMode: {
+    classSuffix: "",
+  },
+  ssr: false,
 });
