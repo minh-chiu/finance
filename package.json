@@ -1,0 +1,51 @@
+{
+  "name": "nuxt-app",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prepare": "husky",
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare",
+    "clean": "rm -rf .nuxt dist .output",
+    "lint:eslint": "eslint .",
+    "format": "prettier --list-different . --ignore-path .prettierignore --write",
+    "lint": "yarn format && yarn lint:eslint --fix"
+  },
+  "dependencies": {
+    "@nuxt/eslint": "^0.5.7",
+    "@nuxtjs/tailwindcss": "^6.12.1",
+    "@radix-icons/vue": "^1.0.0",
+    "class-variance-authority": "^0.7.0",
+    "clsx": "^2.1.1",
+    "nuxt": "^3.13.0",
+    "radix-vue": "^1.9.6",
+    "shadcn-nuxt": "^0.10.4",
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-animate": "^1.0.7",
+    "vue": "latest",
+    "vue-router": "latest"
+  },
+  "packageManager": "yarn@1.22.19+sha1.4ba7fc5c6e704fce2066ecbfb0b0d8976fe62447",
+  "devDependencies": {
+    "@commitlint/cli": "^19.5.0",
+    "@commitlint/config-conventional": "^19.5.0",
+    "eslint": "^9.11.1",
+    "eslint-config-prettier": "^9.1.0",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
+    "nuxt-typed-router": "^3.6.5",
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "^4.1.0",
+    "prettier-plugin-tailwindcss": "^0.6.6",
+    "typescript": "^5.6.2",
+    "vue-tsc": "^2.1.6"
+  },
+  "lint-staged": {
+    "**/*.{js,ts}": [
+      "bun run lint"
+    ]
+  }
+}
