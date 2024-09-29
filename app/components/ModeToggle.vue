@@ -8,10 +8,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 
 const colorMode = useColorMode();
-
-watch(colorMode, () => {
-  console.log({ colorMode });
-});
 </script>
 
 <template>
