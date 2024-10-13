@@ -4,7 +4,7 @@ import ColumnHeader from "~/components/DataTable/ColumnHeader.vue";
 import IconColumn from "~/components/shared/IconColumn.vue";
 import { Badge } from "~/components/ui/badge";
 import { Checkbox } from "~/components/ui/checkbox";
-import AccountRowActions from "~/features/accounts/components/DataTable/AccountRowActions.vue";
+import AccountRowActions from "~/features/accounts/components/AccountRowActions.vue";
 import type { Task } from "~/types/0-task";
 
 export const columns: ColumnDef<Task>[] = [

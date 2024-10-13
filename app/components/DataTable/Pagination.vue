@@ -10,16 +10,15 @@ import type { PageInfo } from "~/types/paginate-response.type";
 interface Props {
   pageInfo: PageInfo;
 }
-type Emits = {
-  pageChange: [page?: number];
-  limitChange: [pageSize: number];
-};
+interface Emits {
+  (e: "change", payload: Pick<PageInfo, "_page" | "_limit">): void;
+}
 
 defineProps<Props>();
-const emits = defineEmits<Emits>();
+const emit = defineEmits<Emits>();
 
-const onPageChange = (page?: number) => emits("pageChange", page);
-const onLimitChange = (pageSize: number) => emits("limitChange", pageSize);
+const onPageChange = (_page?: number) => emit("change", { _page });
+const onLimitChange = (_limit: number) => emit("change", { _limit });
 </script>
 
 <template>

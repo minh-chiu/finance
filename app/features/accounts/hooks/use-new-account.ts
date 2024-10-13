@@ -1,5 +1,5 @@
-export const useNewAccountSheet = () => {
-  const isOpen = useState("useNewAccountSheet", () => false);
+export const useNewAccount = () => {
+  const isOpen = useState("useNewAccount", () => false);
 
   const onOpen = () => {
     isOpen.value = true;

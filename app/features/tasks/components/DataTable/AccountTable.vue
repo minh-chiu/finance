@@ -7,7 +7,7 @@ import {
   type SortingState,
   type VisibilityState,
 } from "@tanstack/vue-table";
-import AccountToolbar from "~/features/accounts/components/DataTable/AccountToolbar.vue";
+import AccountToolbar from "~/features/accounts/components/AccountToolbar.vue";
 import { valueUpdater } from "~/lib/utils";
 import type { Filter } from "~/pages/tasks/index.vue";
 import type { Priority, Status, Task } from "~/types/0-task";

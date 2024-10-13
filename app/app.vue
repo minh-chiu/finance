@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import "~/assets/css/global.css";
-import NewAccountSheet from "~/features/accounts/NewAccountSheet.vue";
+import SheetProvider from "~/providers/SheetProvider.vue";
 </script>
 
 <template>
@@ -9,6 +9,5 @@ import NewAccountSheet from "~/features/accounts/NewAccountSheet.vue";
   </NuxtLayout>
 
   <Toaster />
-  <ConfirmDialog />
-  <NewAccountSheet />
+  <SheetProvider />
 </template>

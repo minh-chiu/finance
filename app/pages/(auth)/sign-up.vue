@@ -2,7 +2,7 @@
 import { useForm } from "vee-validate";
 import { otpApi } from "~/apis/pre-built/10-otp.api";
 import { AccountTypeEnum, OtpTypeEnum, SendOtpToEnum } from "~/utils/enums";
-import { handleError } from "~/utils/helpers/error-handler.helper";
+import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import {
   RegisterSchema,
   calculatePasswordStrength,
@@ -52,7 +52,7 @@ const onSubmitOTP = async (authKey: string) => {
     await otpApi.sendOtp(getOtpItemToSend(authKey));
     startCountDown();
   } catch (error) {
-    handleError(error);
+    handleApiError(error);
   }
 
   isOtpSubmitting.value = false;

@@ -5,7 +5,7 @@ import { useNewAccountSheet } from "~/composables/useNewAccountSheet";
 import { useBulkDeleteAccounts } from "~/features/accounts/api/use-bulk-delete-accounts";
 import type { Filter } from "~/pages/tasks/index.vue";
 import type { Option, Priority, Status, Task } from "~/types/0-task";
-import { handleError } from "~/utils/helpers/error-handler.helper";
+import { handleApiError } from "~/utils/helpers/error-handler.helper";
 
 interface Props {
   table: Table<Task>;
@@ -67,7 +67,7 @@ const onDeleteMany = async () => {
 
   // handle error
   if (error.value) {
-    const { title, description } = handleError(error.value);
+    const { title, description } = handleApiError(error.value);
     return toast({ title, description, variant: "destructive" });
   }
 

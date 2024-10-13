@@ -8,14 +8,14 @@ import type {
   UpdateAccount,
 } from "~/validations/account.validation";
 
-const REVIEW_URL = "/accounts";
+const ACCOUNT_URL = "/accounts";
 export const accountApi = {
   //  ----- Method: GET -----
   paginate: (
     query?: PaginationParams,
     options?: FetchOptions,
   ): Promise<PaginateResponse<Account>> => {
-    return guestFetch.get(`${REVIEW_URL}/paginate`, query, options);
+    return guestFetch.get(`${ACCOUNT_URL}/paginate`, query, options);
   },
 
   getById: (
@@ -23,14 +23,14 @@ export const accountApi = {
     query?: PaginationParams,
     options?: FetchOptions,
   ): Promise<Account> => {
-    return authFetch.get(`${REVIEW_URL}/${id}`, query, options);
+    return authFetch.get(`${ACCOUNT_URL}/${id}`, query, options);
   },
 
   getAll: (
     query?: PaginationParams,
     options?: FetchOptions,
   ): Promise<Account[]> => {
-    return guestFetch.get(REVIEW_URL, query, options);
+    return guestFetch.get(ACCOUNT_URL, query, options);
   },
 
   //  ----- Method: POST -----
@@ -38,7 +38,7 @@ export const accountApi = {
     body: CreateAccount,
     options?: FetchOptions,
   ): Promise<CreateAccount> => {
-    return authFetch.post(REVIEW_URL, body, options);
+    return authFetch.post(ACCOUNT_URL, body, options);
   },
 
   //  ----- Method: PATCH -----
@@ -47,15 +47,15 @@ export const accountApi = {
     body: UpdateAccount,
     options?: FetchOptions,
   ): Promise<Account> => {
-    return authFetch.patch(`${REVIEW_URL}/${id}`, body, options);
+    return authFetch.patch(`${ACCOUNT_URL}/${id}`, body, options);
   },
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${REVIEW_URL}/${ids.join(",")}/bulk`);
+    return authFetch.delete(`${ACCOUNT_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<CreateAccount> => {
-    return authFetch.delete(`${REVIEW_URL}/${id}`);
+    return authFetch.delete(`${ACCOUNT_URL}/${id}`);
   },
 };

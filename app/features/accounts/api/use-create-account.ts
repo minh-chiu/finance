@@ -1,18 +1,18 @@
-import { taskApi } from "~/apis/0-task.api";
-import type { CreateTask } from "~/validations/task.validation";
+import { accountApi } from "~/apis/0-account.api";
+import type { CreateAccount } from "~/validations/account.validation";
 
-export const useCreateTask = () => {
-  const input = ref<CreateTask>();
+export const useCreateAccount = () => {
+  const input = ref<CreateAccount>();
 
   const { error, execute, status } = useAsyncData(
-    () => taskApi.create(input.value!),
+    () => accountApi.create(input.value!),
     {
       server: false,
       immediate: false,
     },
   );
 
-  const executeCreateTask = async (taskInput: CreateTask) => {
+  const executeCreate = async (taskInput: CreateAccount) => {
     input.value = taskInput;
 
     // execute
@@ -20,7 +20,7 @@ export const useCreateTask = () => {
   };
 
   return {
-    executeCreateTask,
+    executeCreate,
     status,
     error,
   };

@@ -7,7 +7,7 @@ import type {
   ResetPasswordWithToken,
 } from "~/types/pre-built/1-auth";
 import { AccountTypeEnum } from "~/utils/enums";
-import { handleError } from "~/utils/helpers/error-handler.helper";
+import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { storageHelper } from "~/utils/helpers/storage.helper";
 
 export const useAuthStore = defineStore("auth", () => {
@@ -38,7 +38,7 @@ export const useAuthStore = defineStore("auth", () => {
   };
 
   const logout = async () => {
-    await authApi.logout().catch((err) => handleError(err));
+    await authApi.logout().catch((err) => handleApiError(err));
 
     // navigateTo('/auth/login');
     return _updateAuth(null);
@@ -79,7 +79,7 @@ export const useAuthStore = defineStore("auth", () => {
 
       return _updateAuth(data);
     } catch (error) {
-      handleError(error);
+      handleApiError(error);
       return _updateAuth(null);
     }
   };
@@ -128,7 +128,7 @@ export const useAuthStore = defineStore("auth", () => {
 
       return res;
     } catch (error) {
-      handleError(error);
+      handleApiError(error);
       return null;
     } finally {
       loading.value = false;

@@ -2,20 +2,20 @@
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 import {
-  CreateAccountSchema,
-  type CreateAccount,
-} from "~/validations/account.validation";
+  CreateTaskSchema,
+  type CreateTask,
+} from "~/validations/task.validation";
 
 interface Props {
   id?: string;
-  initialValues?: CreateAccount;
+  initialValues?: CreateTask;
   ísSubmitting?: boolean;
   isDeleting?: boolean;
   disabled?: boolean;
 }
 
 interface Emits {
-  (e: "onSubmit", values: CreateAccount): void;
+  (e: "onSubmit", values: CreateTask): void;
   (e: "onDelete"): void;
 }
 
@@ -23,11 +23,11 @@ const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const form = useForm({
-  validationSchema: toTypedSchema(CreateAccountSchema),
+  validationSchema: toTypedSchema(CreateTaskSchema),
   initialValues: props.initialValues,
 });
 
-const onSubmit = form.handleSubmit((values: CreateAccount) =>
+const onSubmit = form.handleSubmit((values: CreateTask) =>
   emits("onSubmit", values),
 );
 

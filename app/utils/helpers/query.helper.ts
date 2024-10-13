@@ -2,7 +2,9 @@ import type { LocationQuery } from "vue-router";
 
 const KEY_SEPARATOR = new URLSearchParams(",").toString();
 
-export const applyQueryToURL = (query: Record<string, any>) => {
+export const applyQueryToURL = (query?: Record<string, any>) => {
+  if (!query) return;
+
   const params: Record<string, any> = {};
 
   Object.entries(query).forEach(([key, value]) => {

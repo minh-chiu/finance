@@ -3,7 +3,7 @@ import { useForm } from "vee-validate";
 import { otpApi } from "~/apis/pre-built/10-otp.api";
 import type { VerifyOtp } from "~/types/pre-built/10-otp";
 import { OtpTypeEnum, SendOtpToEnum } from "~/utils/enums";
-import { handleError } from "~/utils/helpers/error-handler.helper";
+import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { ForgotSchema, parseAuthKey } from "~/validations/auth.validation";
 interface Props {
   initialValues?: VerifyOtp;
@@ -57,7 +57,7 @@ const onSubmitOTP = async (authKey: string) => {
     await otpApi.sendOtp(getOtpItemToSend(authKey));
     startCountDown();
   } catch (error) {
-    handleError(error);
+    handleApiError(error);
   }
 
   isOtpSubmitting.value = false;
@@ -79,7 +79,7 @@ const onSubmit = handleSubmit(async (values) => {
     emits("onSubmitted", verifyItem);
   } catch (error) {
     setFieldError("otpCode", "Invalid OTP Code!");
-    handleError(error);
+    handleApiError(error);
   }
 
   loading.value = false;

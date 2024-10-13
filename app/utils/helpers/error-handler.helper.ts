@@ -11,7 +11,7 @@ const formatErrorMsg = (errorType: ErrorTypeEnum, details: ErrorDetail[]) => {
   return details?.[0]?.message || "Something went wrong!";
 };
 
-export const handleError = (error: any) => {
+export const handleApiError = (error: any) => {
   let errorType = error.type,
     errorTitle = error.name;
 
@@ -33,22 +33,4 @@ export const handleError = (error: any) => {
     title: errorTitle,
     description: errorMsg,
   };
-};
-
-export const withLoading = async <T>(
-  isLoading: globalThis.Ref<boolean>,
-  func: () => Promise<T>,
-  onSuccess: (result: T) => void,
-  onError: (error: unknown) => void = handleError,
-): Promise<void> => {
-  isLoading.value = true;
-
-  try {
-    const result = await func();
-    onSuccess(result);
-  } catch (error) {
-    onError(error);
-  } finally {
-    isLoading.value = false;
-  }
 };

@@ -1,6 +1,5 @@
 <script setup lang="ts">
-import AccountTable from "~/features/accounts/components/DataTable/AccountTable.vue";
-import UserNav from "~/features/tasks/components/UserNav.vue";
+import AccountTable from "~/features/tasks/components/DataTable/AccountTable.vue";
 import { columns } from "~/pages/tasks/column";
 import type { Priority, Status } from "~/types/0-task";
 import {
