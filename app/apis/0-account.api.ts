@@ -1,4 +1,4 @@
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { UpdateResult } from "~/types/update-result";
 import { authFetch, guestFetch } from "~/utils/fetch";
 import type { FetchOptions, PaginationParams } from "~/utils/types/fetch.types";
@@ -52,7 +52,7 @@ export const accountApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${REVIEW_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${REVIEW_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<CreateAccount> => {

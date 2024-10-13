@@ -3,11 +3,10 @@ import {
   convertFieldsToString,
   type FieldObject,
 } from "./field-formatter.helper";
-import { convertSortQueryToString } from "./sorting.helper";
 
 export const convertQueryToPaginationParams = (query: {
-  _page?: number;
-  _limit?: number;
+  _page?: number | string;
+  _limit?: number | string;
   _sort?: string;
   _populate?: string | string[];
   _fields?: FieldObject | string;
@@ -21,7 +20,7 @@ export const convertQueryToPaginationParams = (query: {
 
   if (_limit) params._limit = _limit;
 
-  if (_sort) params._sort = convertSortQueryToString(_sort);
+  if (_sort) params._sort = _sort;
 
   if (_populate)
     params._populate = Array.isArray(query._populate)
@@ -33,4 +32,22 @@ export const convertQueryToPaginationParams = (query: {
       typeof _fields === "string" ? _fields : convertFieldsToString(_fields);
 
   return { ...params, ...rest };
+};
+
+export const getQueryParams = ({
+  _sort,
+  _limit,
+  _page,
+}: Record<string, any>) => {
+  return { _sort, _limit, _page };
+};
+
+export const URLSearchParamsString = ({
+  _limit,
+  _sort,
+  _page,
+}: PaginationParams) => {
+  return new URLSearchParams(
+    convertQueryToPaginationParams({ _sort, _limit, _page }),
+  ).toString();
 };

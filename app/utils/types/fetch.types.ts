@@ -3,8 +3,8 @@ export type SearchParams = Record<string, any>;
 export type MethodType = "get" | "post" | "delete" | "patch" | "put";
 
 export type PaginationParams = {
-  _page?: number;
-  _limit?: number;
+  _page?: number | string;
+  _limit?: number | string;
   _sort?: string;
   _populate?: string;
   _fields?: string;

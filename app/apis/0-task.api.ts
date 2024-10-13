@@ -1,8 +1,9 @@
 import type { Task } from "~/types/0-task";
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { UpdateResult } from "~/types/update-result";
 import { authFetch, guestFetch } from "~/utils/fetch";
 import type { FetchOptions, PaginationParams } from "~/utils/types/fetch.types";
+import type { CreateTask } from "~/validations/task.validation";
 
 const TASK_URL = "/tasks";
 export const taskApi = {
@@ -30,7 +31,7 @@ export const taskApi = {
   },
 
   //  ----- Method: POST -----
-  create: (body: Task, options?: FetchOptions): Promise<Task> => {
+  create: (body: CreateTask, options?: FetchOptions): Promise<Task> => {
     return authFetch.post(TASK_URL, body, options);
   },
 
@@ -45,7 +46,7 @@ export const taskApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${TASK_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${TASK_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<Task> => {

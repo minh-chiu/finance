@@ -8,10 +8,10 @@ import {
 import type { Table } from "@tanstack/vue-table";
 import type { Task } from "../data/schema";
 
-interface DataTablePaginationProps {
+interface Props {
   table: Table<Task>;
 }
-defineProps<DataTablePaginationProps>();
+defineProps<Props>();
 </script>
 
 <template>

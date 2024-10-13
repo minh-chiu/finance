@@ -37,7 +37,7 @@ export const bookingApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${BOOKING_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${BOOKING_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<Booking> => {

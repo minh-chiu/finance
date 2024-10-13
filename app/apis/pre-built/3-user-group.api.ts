@@ -1,4 +1,4 @@
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { UserGroup } from "~/types/pre-built/3-user-group";
 import type { UpdateResult } from "~/types/update-result";
 import { authFetch, guestFetch } from "~/utils/fetch";
@@ -45,7 +45,7 @@ export const userGroupGroupApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${USER_GROUP_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${USER_GROUP_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<UserGroup> => {

@@ -37,7 +37,7 @@ export const menuApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${MENU_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${MENU_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<Menu> => {

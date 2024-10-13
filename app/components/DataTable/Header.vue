@@ -1,19 +1,16 @@
 <script setup lang="ts">
-import { FlexRender, type Table } from "@tanstack/vue-table";
-import type { Task } from "~/features/tasks/data/schema";
+import { FlexRender, type HeaderGroup } from "@tanstack/vue-table";
 
-interface DataTableToolbarProps {
-  table: Table<Task>;
+interface Props {
+  headerGroups: HeaderGroup<any>[];
 }
-defineProps<DataTableToolbarProps>();
+
+defineProps<Props>();
 </script>
 
 <template>
   <TableHeader>
-    <TableRow
-      v-for="headerGroup in table.getHeaderGroups()"
-      :key="headerGroup.id"
-    >
+    <TableRow v-for="headerGroup in headerGroups" :key="headerGroup.id">
       <TableHead v-for="header in headerGroup.headers" :key="header.id">
         <FlexRender
           v-if="!header.isPlaceholder"

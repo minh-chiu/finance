@@ -1,36 +1,29 @@
 <script setup lang="ts">
-import type { Table } from "@tanstack/vue-table";
+import { MixerHorizontalIcon } from "@radix-icons/vue";
+import type { Column } from "@tanstack/vue-table";
 import { computed } from "vue";
 
 interface Props {
-  table: Table<any>;
+  columns: Column<any>[];
 }
 
 const props = defineProps<Props>();
 
 const columns = computed(() =>
-  props.table
-    .getAllColumns()
-    .filter(
-      (column) =>
-        typeof column.accessorFn !== "undefined" && column.getCanHide(),
-    ),
+  props.columns.filter(
+    (column) => typeof column.accessorFn !== "undefined" && column.getCanHide(),
+  ),
 );
 </script>
 
 <template>
   <DropdownMenu>
     <DropdownMenuTrigger as-child>
-      <Button
-        variant="outline"
-        size="sm"
-        class="ml-auto hidden h-8 text-primary lg:flex"
-      >
-        <Icon name="radix-icons:mixer-horizontal" class="mr-2 h-4 w-4" />
+      <Button variant="outline" size="sm" class="ml-auto hidden h-8 lg:flex">
+        <MixerHorizontalIcon class="mr-2 h-4 w-4" />
         View
       </Button>
     </DropdownMenuTrigger>
-
     <DropdownMenuContent align="end" class="w-[150px]">
       <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
       <DropdownMenuSeparator />

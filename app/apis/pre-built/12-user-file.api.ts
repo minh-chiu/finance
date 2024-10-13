@@ -1,4 +1,4 @@
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { UserFile } from "~/types/pre-built/12-user-file";
 import type { UpdateResult } from "~/types/update-result";
 import { authFetch } from "~/utils/fetch";
@@ -32,7 +32,7 @@ export const userFileApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${USER_FILE_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${USER_FILE_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<UserFile> => {

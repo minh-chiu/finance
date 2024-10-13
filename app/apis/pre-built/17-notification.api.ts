@@ -1,4 +1,4 @@
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { Setting } from "~/types/pre-built/16-setting";
 import type { UpdateResult } from "~/types/update-result";
 import { authFetch } from "~/utils/fetch";
@@ -45,7 +45,7 @@ export const notificationApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${NOTIFICATION_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${NOTIFICATION_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<Setting> => {

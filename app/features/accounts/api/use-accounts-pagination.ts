@@ -1,9 +1,12 @@
 import { accountApi } from "~/apis/0-account.api";
-import type { PageInfo } from "~/types/paginate-reponse.type";
+import { taskApi } from "~/apis/0-task.api";
+import type { PageInfo } from "~/types/paginate-response.type";
 import type { Nullable } from "~/utils/types/nullable";
 import type { Account } from "~/validations/account.validation";
 
-export const useAccountsPagination = () => {
+export const useAccountsPagination = async () => {
+  const { data, status } = await useLazyAsyncData(() => taskApi.paginate());
+
   const accounts = useState<Account[]>("accounts", () => []);
   const pageInfo = useState<Nullable<PageInfo>>("pageInfo", () => null);
   const isLoading = useState("isLoading", () => false);
@@ -25,5 +28,7 @@ export const useAccountsPagination = () => {
     accounts,
     pageInfo,
     isLoading,
+    data,
+    status,
   };
 };

@@ -1,5 +1,5 @@
 import type { DeleteResult } from "~/types/delete-result";
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { UpdatePassword, User } from "~/types/pre-built/2-user";
 import type { UpdateResult } from "~/types/update-result";
 import type { AccountStatus } from "~/utils/enums/enums";
@@ -72,7 +72,7 @@ export const userApi = {
   },
 
   deleteManySoftByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${USER_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${USER_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteSoftById: (id: string): Promise<User> => {

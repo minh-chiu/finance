@@ -37,7 +37,7 @@ export const categoryApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${CATEGORY_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${CATEGORY_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<Category> => {

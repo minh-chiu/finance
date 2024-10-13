@@ -1,4 +1,4 @@
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { Policy } from "~/types/pre-built/4-policy";
 import type { UpdateResult } from "~/types/update-result";
 import { authFetch, guestFetch } from "~/utils/fetch";
@@ -45,7 +45,7 @@ export const policyApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${POLICY_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${POLICY_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<Policy> => {

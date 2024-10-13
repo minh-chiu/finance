@@ -1,6 +1,6 @@
 <script setup lang="ts">
+import { cn } from "@/lib/utils";
 import type { Column } from "@tanstack/vue-table";
-import { cn } from "~/lib/utils";
 
 interface Props {
   column: Column<any, any>;

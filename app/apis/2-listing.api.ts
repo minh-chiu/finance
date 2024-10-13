@@ -1,5 +1,5 @@
 import type { Listing } from "~/types/2-listing";
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { UpdateResult } from "~/types/update-result";
 import type { ActionEnum } from "~/utils/enums/enums";
 import { authFetch, guestFetch } from "~/utils/fetch";
@@ -58,7 +58,7 @@ export const listingApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${LISTING_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${LISTING_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<Listing> => {

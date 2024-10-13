@@ -1,4 +1,4 @@
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { District } from "~/types/pre-built/14-district";
 import type { UpdateResult } from "~/types/update-result";
 import { authFetch, guestFetch } from "~/utils/fetch";
@@ -45,7 +45,7 @@ export const districtApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${DISTRICT_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${DISTRICT_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<District> => {

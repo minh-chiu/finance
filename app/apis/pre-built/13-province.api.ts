@@ -1,4 +1,4 @@
-import type { PaginateResponse } from "~/types/paginate-reponse.type";
+import type { PaginateResponse } from "~/types/paginate-response.type";
 import type { Province } from "~/types/pre-built/13-province";
 import type { UpdateResult } from "~/types/update-result";
 import { authFetch, guestFetch } from "~/utils/fetch";
@@ -45,7 +45,7 @@ export const provinceApi = {
 
   //  ----- Method: DELETE -----
   deleteManyByIds: (ids: string[]): Promise<UpdateResult> => {
-    return authFetch.delete(`${PROVINCE_URL}/${ids.join(",")}/ids`);
+    return authFetch.delete(`${PROVINCE_URL}/${ids.join(",")}/bulk`);
   },
 
   deleteById: (id: string): Promise<Province> => {
