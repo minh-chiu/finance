@@ -5,7 +5,7 @@ const { promise, handleCancel, handleConfirm, title, description, isLoading } =
 
 <template>
   <AlertDialog :open="!!promise || isLoading">
-    <AlertDialogContent>
+    <AlertDialogContent class="z-[99]">
       <AlertDialogHeader>
         <AlertDialogTitle>{{ title }}</AlertDialogTitle>
         <AlertDialogDescription>{{ description }} </AlertDialogDescription>

@@ -77,7 +77,7 @@ const onDeleteMany = async () => {
     description: "Accounts deleted successfully",
   });
   props.table.resetRowSelection();
-  refreshNuxtData("accounts-paginate");
+  refreshNuxtData("accounts-pagination");
 };
 
 const onExport = () => {

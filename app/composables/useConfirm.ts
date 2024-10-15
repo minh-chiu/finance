@@ -6,24 +6,22 @@ export const useConfirm = () => {
   const title = useState("title", () => "");
   const description = useState("description", () => "");
 
-  const setDialog = (_title: string, _description: string) => {
+  const confirm = (_title: string, desc: string) => {
     title.value = _title;
-    description.value = _description;
-  };
+    description.value = desc;
 
-  const confirm = () => {
     return new Promise<boolean>((resolve) => {
       promise.value = { resolve };
     });
   };
 
-  const handleClose = () => {
-    promise.value = undefined;
-  };
+  const handleClose = () => (promise.value = undefined);
+
   const handleConfirm = () => {
     promise.value?.resolve(true);
     handleClose();
   };
+
   const handleCancel = () => {
     promise.value?.resolve(false);
     handleClose();
@@ -34,15 +32,14 @@ export const useConfirm = () => {
   };
 
   return {
-    promise,
     confirm,
     handleClose,
     handleConfirm,
     handleCancel,
+    setLoading,
+    promise,
     title,
     description,
-    setDialog,
-    setLoading,
     isLoading,
   };
 };

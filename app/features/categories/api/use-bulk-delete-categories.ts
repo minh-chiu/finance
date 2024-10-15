@@ -1,10 +1,10 @@
-import { accountApi } from "~/apis/0-account.api";
+import { categoryApi } from "~/apis/1-category.api";
 
-export const useBulkDeleteAccounts = () => {
+export const useBulkDeleteCategories = () => {
   const ids = ref<string[]>([]);
 
   const { error, execute, status } = useAsyncData(
-    () => accountApi.deleteManyByIds(ids.value),
+    () => categoryApi.deleteManyByIds(ids.value),
     { server: false, immediate: false },
   );
 

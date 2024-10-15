@@ -2,20 +2,20 @@
 import { toTypedSchema } from "@vee-validate/zod";
 import { useForm } from "vee-validate";
 import {
-  CreateAccountSchema,
-  type CreateAccount,
-} from "~/validations/account.validation";
+  CreateCategorySchema,
+  type CreateCategory,
+} from "~/validations/category.validation";
 
 interface Props {
   id?: string;
-  initialValues?: CreateAccount;
+  initialValues?: CreateCategory;
   ísSubmitting?: boolean;
   isDeleting?: boolean;
   disabled?: boolean;
 }
 
 interface Emits {
-  (e: "onSubmit", values: CreateAccount): void;
+  (e: "onSubmit", values: CreateCategory): void;
   (e: "onDelete"): void;
 }
 
@@ -23,11 +23,11 @@ const props = defineProps<Props>();
 const emits = defineEmits<Emits>();
 
 const form = useForm({
-  validationSchema: toTypedSchema(CreateAccountSchema),
+  validationSchema: toTypedSchema(CreateCategorySchema),
   initialValues: props.initialValues,
 });
 
-const onSubmit = form.handleSubmit((values: CreateAccount) =>
+const onSubmit = form.handleSubmit((values: CreateCategory) =>
   emits("onSubmit", values),
 );
 
@@ -38,11 +38,7 @@ const onDelete = () => {
 
 <template>
   <form class="space-y-4" @submit="onSubmit">
-    <FormField
-      v-slot="{ componentField }"
-      name="title"
-      :disabled="ísSubmitting"
-    >
+    <FormField v-slot="{ componentField }" name="name" :disabled="ísSubmitting">
       <FormItem>
         <FormLabel>Name</FormLabel>
 
@@ -69,7 +65,7 @@ const onDelete = () => {
         name="lucide:loader"
         class="mr-2 h-4 w-4 animate-spin"
       />
-      <template v-else>{{ id ? "Update" : "Create" }} Account</template>
+      <template v-else>{{ id ? "Update" : "Create" }} Category</template>
     </Button>
 
     <Button
@@ -88,7 +84,7 @@ const onDelete = () => {
       />
 
       <Icon v-else name="material-symbols:delete-outline" class="mr-2 size-4" />
-      Delete Account
+      Delete Category
     </Button>
   </form>
 </template>

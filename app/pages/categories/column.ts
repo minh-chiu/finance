@@ -2,10 +2,10 @@ import type { ColumnDef } from "@tanstack/vue-table";
 import { h } from "vue";
 import ColumnHeader from "~/components/DataTable/ColumnHeader.vue";
 import { Checkbox } from "~/components/ui/checkbox";
-import AccountRowActions from "~/features/accounts/components/AccountActions.vue";
-import type { Account } from "~/validations/account.validation";
+import CategoryActions from "~/features/categories/components/CategoryActions.vue";
+import type { Category } from "~/validations/category.validation";
 
-export const columns: ColumnDef<Account>[] = [
+export const columns: ColumnDef<Category>[] = [
   {
     id: "select",
     header: ({ table }) =>
@@ -36,11 +36,11 @@ export const columns: ColumnDef<Account>[] = [
   },
 
   {
-    accessorKey: "title",
+    accessorKey: "name",
     header: ({ column }) => h(ColumnHeader, { column, title: "Name" }),
 
     cell: ({ row }) => {
-      return row.original.title;
+      return row.original.name;
     },
 
     enableMultiSort: false,
@@ -48,6 +48,6 @@ export const columns: ColumnDef<Account>[] = [
   {
     id: "actions",
     header: ({ column }) => h(ColumnHeader, { column, title: "Actions" }),
-    cell: ({ row }) => h(AccountRowActions, { row }),
+    cell: ({ row }) => h(CategoryActions, { row }),
   },
 ];

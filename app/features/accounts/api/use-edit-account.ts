@@ -1,8 +1,8 @@
 import { accountApi } from "~/apis/0-account.api";
-import type { CreateAccount } from "~/validations/account.validation";
+import type { UpdateAccount } from "~/validations/account.validation";
 
-export const useCreateAccount = () => {
-  const input = ref<CreateAccount>();
+export const useEditAccount = () => {
+  const input = ref<UpdateAccount>();
 
   const { error, execute, status } = useAsyncData(
     () => accountApi.create(input.value!),
@@ -12,7 +12,7 @@ export const useCreateAccount = () => {
     },
   );
 
-  const executeCreate = async (accountInput: CreateAccount) => {
+  const executeEdit = async (accountInput: UpdateAccount) => {
     input.value = accountInput;
 
     // execute
@@ -20,7 +20,7 @@ export const useCreateAccount = () => {
   };
 
   return {
-    executeCreate,
+    executeEdit,
     status,
     error,
   };
