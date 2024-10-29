@@ -31,9 +31,7 @@ const onSubmit = form.handleSubmit((values: CreateAccount) =>
   emits("onSubmit", values),
 );
 
-const onDelete = () => {
-  emits("onDelete");
-};
+const onDelete = () => emits("onDelete");
 </script>
 
 <template>
@@ -44,7 +42,7 @@ const onDelete = () => {
       :disabled="ísSubmitting"
     >
       <FormItem>
-        <FormLabel>Name</FormLabel>
+        <FormLabel>Title</FormLabel>
 
         <FormControl>
           <Input

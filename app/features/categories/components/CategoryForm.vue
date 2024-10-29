@@ -31,9 +31,7 @@ const onSubmit = form.handleSubmit((values: CreateCategory) =>
   emits("onSubmit", values),
 );
 
-const onDelete = () => {
-  emits("onDelete");
-};
+const onDelete = () => emits("onDelete");
 </script>
 
 <template>

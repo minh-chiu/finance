@@ -5,9 +5,8 @@ definePageMeta({
 </script>
 
 <template>
-  <div>
-    <div class="h-20 bg-background text-foreground">text</div>
-    <ModeToggle />
-    <Button>Click me</Button>
+  <div class="mx-auto -mt-24 w-full max-w-screen-2xl pb-10">
+    <DataGrid />
+    <DataCharts />
   </div>
 </template>

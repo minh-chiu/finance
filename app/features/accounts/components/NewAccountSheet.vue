@@ -21,6 +21,7 @@ const onSubmit = async (value: CreateAccount) => {
 
   // success
   toast({ title: "Success", description: "Account created successfully" });
+  refreshNuxtData("accounts");
   refreshNuxtData("accounts-pagination");
   onClose();
 };

@@ -3,16 +3,21 @@ import type { UpdateCategory } from "~/validations/category.validation";
 
 export const useEditCategory = () => {
   const input = ref<UpdateCategory>();
+  const id = ref<string>("");
 
   const { error, execute, status } = useAsyncData(
-    () => categoryApi.create(input.value!),
+    () => categoryApi.updateById(id.value, input.value!),
     {
       server: false,
       immediate: false,
     },
   );
 
-  const executeEdit = async (accountInput: UpdateCategory) => {
+  const executeEdit = async (
+    categoryId: string,
+    accountInput: UpdateCategory,
+  ) => {
+    id.value = categoryId;
     input.value = accountInput;
 
     // execute

@@ -6,7 +6,7 @@ import { useGetAccount } from "~/features/accounts/api/use-get-account";
 import AccountForm from "~/features/accounts/components/AccountForm.vue";
 import { useOpenAccount } from "~/features/accounts/hooks/use-open-account";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
-import { type UpdateAccount } from "~/validations/account.validation";
+import type { UpdateAccount } from "~/validations/account.validation";
 
 const { isOpen, onClose, accountId } = useOpenAccount();
 const { confirm, setLoading } = useConfirm();
@@ -26,7 +26,7 @@ const initialValues = computed(() => {
 });
 
 const onSubmit = async (values: UpdateAccount) => {
-  await executeEdit(values);
+  await executeEdit(accountId.value!, values);
 
   if (editError.value) {
     const { title, description } = handleApiError(editError.value);
@@ -34,9 +34,8 @@ const onSubmit = async (values: UpdateAccount) => {
   } else {
     toast({ title: "Success", description: "Account updated successfully" });
     refreshNuxtData("accounts-pagination");
+    onClose();
   }
-
-  onClose();
 };
 
 watch(deleteStatus, () => setLoading(deleteStatus.value));
@@ -55,7 +54,7 @@ const onDelete = async () => {
   } else {
     toast({ title: "Success", description: "Account deleted successfully" });
     onClose();
-    refreshNuxtData("accounts-pagination");
+    refreshNuxtData("accounts");
   }
 };
 </script>

@@ -34,6 +34,7 @@ const onDelete = async () => {
     toast({ title, description, variant: "destructive" });
   } else {
     toast({ title: "Success", description: "Category deleted successfully" });
+    refreshNuxtData("categories");
     refreshNuxtData("categories-pagination");
   }
 };

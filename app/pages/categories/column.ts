@@ -40,7 +40,7 @@ export const columns: ColumnDef<Category>[] = [
     header: ({ column }) => h(ColumnHeader, { column, title: "Name" }),
 
     cell: ({ row }) => {
-      return row.original.name;
+      return row.original.name ? row.original.name : "N/A";
     },
 
     enableMultiSort: false,

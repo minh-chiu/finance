@@ -21,6 +21,7 @@ const onSubmit = async (value: CreateCategory) => {
 
   // success
   toast({ title: "Success", description: "Category created successfully" });
+  refreshNuxtData("categories");
   refreshNuxtData("categories-pagination");
   onClose();
 };

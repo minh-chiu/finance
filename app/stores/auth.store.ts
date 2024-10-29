@@ -1,4 +1,5 @@
 import { authApi } from "~/apis/pre-built/1-auth.api";
+import { toast } from "~/components/ui/toast";
 import type {
   AuthUser,
   Login,
@@ -128,7 +129,8 @@ export const useAuthStore = defineStore("auth", () => {
 
       return res;
     } catch (error) {
-      handleApiError(error);
+      const { description, title } = handleApiError(error);
+      toast({ description, title, variant: "destructive" });
       return null;
     } finally {
       loading.value = false;

@@ -26,17 +26,17 @@ const initialValues = computed(() => {
 });
 
 const onSubmit = async (values: UpdateCategory) => {
-  await executeEdit(values);
+  await executeEdit(categoryId.value!, values);
 
   if (editError.value) {
     const { title, description } = handleApiError(editError.value);
     toast({ title, description, variant: "destructive" });
   } else {
     toast({ title: "Success", description: "Category updated successfully" });
+    refreshNuxtData("get-categories");
     refreshNuxtData("categories-pagination");
+    onClose();
   }
-
-  onClose();
 };
 
 watch(deleteStatus, () => setLoading(deleteStatus.value));
@@ -55,7 +55,7 @@ const onDelete = async () => {
   } else {
     toast({ title: "Success", description: "Category deleted successfully" });
     onClose();
-    refreshNuxtData("categories-pagination");
+    refreshNuxtData("categories");
   }
 };
 </script>

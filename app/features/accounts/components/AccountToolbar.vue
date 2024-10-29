@@ -58,12 +58,11 @@ const onDeleteMany = async () => {
     description: "Accounts deleted successfully",
   });
   props.table.resetRowSelection();
+  refreshNuxtData("accounts");
   refreshNuxtData("accounts-pagination");
 };
 </script>
-/************* ✨ Codeium Command ⭐ *************/ /** * Handle export button
-click. Currently does nothing. */ /****** f4a02e10-6b14-4fad-b621-334d14e293e5
-*******/
+
 <template>
   <div class="flex items-center justify-between">
     <div class="flex flex-1 items-center space-x-2">

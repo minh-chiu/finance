@@ -23,7 +23,7 @@ watch(deleteStatus, () => setLoading(deleteStatus.value));
 const onDelete = async () => {
   const ok = await confirm(
     "Are you sure you want to delete this account?",
-    "Delete Account: " + props.row.original.title,
+    "Delete Account: " + props.row.original.name,
   );
   if (!ok) return;
 
@@ -34,6 +34,7 @@ const onDelete = async () => {
     toast({ title, description, variant: "destructive" });
   } else {
     toast({ title: "Success", description: "Account deleted successfully" });
+    refreshNuxtData("accounts");
     refreshNuxtData("accounts-pagination");
   }
 };
