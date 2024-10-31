@@ -4,4 +4,5 @@ export const useGetCategories = () =>
   useAsyncData("categories", () => categoryApi.getAll(), {
     server: false,
     lazy: true,
+    dedupe: "defer",
   });

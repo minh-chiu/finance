@@ -63,56 +63,59 @@ const onTypeChange = (type: string) => {
         <Icon name="mdi:file-outline" class="size-6 text-muted-foreground" />
         <p class="text-sm text-muted-foreground">No data for this period</p>
       </div>
-      <AreaChart
-        v-if="chartType === 'area'"
-        :data="data"
-        index="date"
-        :categories="['income', 'expenses']"
-        :colors="['blue', 'orange']"
-        :custom-tooltip="CustomTooltip"
-        :y-formatter="
-          (tick: number | Date) => {
-            return typeof tick === 'number'
-              ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
-              : '';
-          }
-        "
-        :x-formatter="(_, index) => format(data[index]!.date, 'MMM dd, yyyy')"
-      />
 
-      <LineChart
-        v-else-if="chartType === 'line'"
-        :data="data"
-        index="date"
-        :categories="['expenses', 'income']"
-        :colors="['blue', 'orange']"
-        :y-formatter="
-          (tick: number | Date) => {
-            return typeof tick === 'number'
-              ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
-              : '';
-          }
-        "
-        :x-formatter="(_, index) => format(data[index]!.date, 'MMM dd, yyyy')"
-        :custom-tooltip="CustomTooltip"
-      />
+      <template v-else>
+        <AreaChart
+          v-if="chartType === 'area'"
+          :data="data"
+          index="date"
+          :categories="['income', 'expenses']"
+          :colors="['blue', 'orange']"
+          :custom-tooltip="CustomTooltip"
+          :y-formatter="
+            (tick: number | Date) => {
+              return typeof tick === 'number'
+                ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
+                : '';
+            }
+          "
+          :x-formatter="(_, index) => format(data[index]!.date, 'MMM dd, yyyy')"
+        />
 
-      <BarChart
-        v-else
-        :data="data"
-        index="date"
-        :categories="['expenses', 'income']"
-        :colors="['blue', 'orange']"
-        :y-formatter="
-          (tick: number | Date) => {
-            return typeof tick === 'number'
-              ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
-              : '';
-          }
-        "
-        :x-formatter="(_, index) => format(data[index]!.date, 'MMM dd, yyyy')"
-        :custom-tooltip="CustomTooltip"
-      />
+        <LineChart
+          v-else-if="chartType === 'line'"
+          :data="data"
+          index="date"
+          :categories="['expenses', 'income']"
+          :colors="['blue', 'orange']"
+          :y-formatter="
+            (tick: number | Date) => {
+              return typeof tick === 'number'
+                ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
+                : '';
+            }
+          "
+          :x-formatter="(_, index) => format(data[index]!.date, 'MMM dd, yyyy')"
+          :custom-tooltip="CustomTooltip"
+        />
+
+        <BarChart
+          v-else
+          :data="data"
+          index="date"
+          :categories="['expenses', 'income']"
+          :colors="['blue', 'orange']"
+          :y-formatter="
+            (tick: number | Date) => {
+              return typeof tick === 'number'
+                ? `$ ${new Intl.NumberFormat('us').format(tick).toString()}`
+                : '';
+            }
+          "
+          :x-formatter="(_, index) => format(data[index]!.date, 'MMM dd, yyyy')"
+          :custom-tooltip="CustomTooltip"
+        />
+      </template>
     </CardContent>
   </Card>
 </template>

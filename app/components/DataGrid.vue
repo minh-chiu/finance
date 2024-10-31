@@ -1,17 +1,36 @@
 <script setup lang="ts">
+import { startOfDay } from "date-fns";
 import { summaryApi } from "~/apis/0-summary.api";
+import { useGetAccounts } from "~/features/accounts/api/use-get-accounts";
 import { formatDataRange } from "~/utils/helpers/format-data-range.helper";
 
 const route = useRoute();
-const { from = undefined, to = undefined }: { from?: string; to?: string } =
-  route.query;
 
-const dateRangeLabel = formatDataRange({ to, from });
-const { data, status } = useAsyncData("summaries", () =>
-  summaryApi.getTransactionStats({
-    from,
-    to,
-  }),
+const from = computed(() => route.query.from as string);
+const to = computed(() => route.query.to as string);
+const { data: accounts } = useGetAccounts();
+const accountId = computed(() => {
+  return accounts.value?.find(
+    (account) => account.title === (route.query.account as string),
+  )?._id;
+});
+
+const dateRangeLabel = computed(() => {
+  return formatDataRange({ from: from.value, to: to.value });
+});
+
+const { data, status } = useAsyncData(
+  "summaries",
+  () =>
+    summaryApi.getTransactionStats({
+      from: from.value ? startOfDay(from.value).toISOString() : undefined,
+      to: to.value ? startOfDay(to.value).toISOString() : undefined,
+      accountId: accountId.value,
+    }),
+  {
+    watch: [from, to, accountId],
+    dedupe: "defer",
+  },
 );
 </script>
 

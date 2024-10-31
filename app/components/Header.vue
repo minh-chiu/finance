@@ -24,6 +24,9 @@ const isMobile = useMediaQuery("(max-width: 1024px)");
 
       <!-- Header Hero -->
       <WelcomeMsg />
+
+      <!-- Filter -->
+      <Filters />
     </div>
   </header>
 </template>
