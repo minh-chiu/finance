@@ -12,6 +12,12 @@ A simple finance management app built with **Nuxt.js**, allowing users to track 
 - **Reports & Analytics**: View spending summaries with charts and balance history.
 - **Import CSV Data**: Quickly import transaction data from CSV files.
 
+
+## Demo Video
+
+[![Watch the video](https://www.youtube.com/watch?v=6qaSh86tZ24)](https://www.youtube.com/watch?v=6qaSh86tZ24)
+
+
 ## Screenshots
 
 <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
@@ -26,12 +32,6 @@ A simple finance management app built with **Nuxt.js**, allowing users to track 
   <img src="public/preview/sign-in-sm.jpg" width="31%" alt="Reports">
   <img src="public/preview/sign-up-sm.jpg" width="31%" alt="Reports">
 </div>
-
-## Demo Video
-
-[![Watch the video](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=6qaSh86tZ24)
-
-Click the image above or [watch the video here](https://www.youtube.com/watch?v=6qaSh86tZ24).
 
 ## Tech Stack
 
