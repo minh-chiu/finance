@@ -1,4 +1,4 @@
-# Finance Management App
+# Finance Management 
 
 ## Overview
 
