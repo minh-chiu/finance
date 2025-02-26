@@ -1,75 +1,52 @@
-# Nuxt 3 Minimal Starter
+# Finance Management App
 
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
+## Overview
+
+A simple finance management app built with **Nuxt.js**, allowing users to track expenses, manage accounts, and analyze spending through reports and charts.
+
+## Features
+
+- **Accounts**: Create and manage multiple accounts (Cash, Bank, E-Wallets, etc.).
+- **Categories**: Organize transactions into categories (Food, Shopping, Salary, etc.).
+- **Transactions**: Add, edit, and delete income/expense records with descriptions and timestamps.
+- **Reports & Analytics**: View spending summaries with charts and balance history.
+- **Import CSV Data**: Quickly import transaction data from CSV files.
+
+## Screenshots
+
+<div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+  <img src="public/preview/home.jpg" width="48%" alt="Dashboard">
+  <img src="public/preview/home-chart.jpg" width="48%" alt="Dashboard">
+  <img src="public/preview/trans.jpg" width="48%" alt="Dashboard">
+  <img src="public/preview/new-trans.jpg" width="48%" alt="Dashboard">
+  <img src="public/preview/chart-sm.jpg" width="31%" alt="Reports">
+  <img src="public/preview/home-mb.jpg" width="31%" alt="Reports">
+  <img src="public/preview/account-sm.jpg" width="31%" alt="Reports">
+  <img src="public/preview/import-sm.jpg" width="31%" alt="Reports">
+  <img src="public/preview/sign-in-sm.jpg" width="31%" alt="Reports">
+  <img src="public/preview/sign-up-sm.jpg" width="31%" alt="Reports">
+</div>
+
+## Demo Video
+
+[![Watch the video](https://img.youtube.com/vi/YOUR_VIDEO_ID/maxresdefault.jpg)](https://www.youtube.com/watch?v=6qaSh86tZ24)
+
+Click the image above or [watch the video here](https://www.youtube.com/watch?v=6qaSh86tZ24).
+
+## Tech Stack
+
+- **Frontend**: Nuxt.js (Vue.js)
+- **State Management**: Pinia
+- **Database**: MongoDB
+- **Backend**: Node.js (NestJS / Express)
+- **Authentication**: JWT, Firebase
+- **UI Framework**: Tailwind CSS / Shadcn
 
 ## Setup
 
-Make sure to install the dependencies:
-
 ```bash
-# npm
+git clone https://github.com/your-repo/finance-management.git
+cd finance-management
 npm install
-
-# pnpm
-pnpm install
-
-# yarn
-yarn install
-
-# bun
-bun install
-```
-
-## Development Server
-
-Start the development server on `http://localhost:3000`:
-
-```bash
-# npm
 npm run dev
-
-# pnpm
-pnpm run dev
-
-# yarn
-yarn dev
-
-# bun
-bun run dev
 ```
-
-## Production
-
-Build the application for production:
-
-```bash
-# npm
-npm run build
-
-# pnpm
-pnpm run build
-
-# yarn
-yarn build
-
-# bun
-bun run build
-```
-
-Locally preview production build:
-
-```bash
-# npm
-npm run preview
-
-# pnpm
-pnpm run preview
-
-# yarn
-yarn preview
-
-# bun
-bun run preview
-```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
