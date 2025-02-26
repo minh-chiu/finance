@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { transactionApi } from "~/apis/0-transaction.api";
 import { toast } from "~/components/ui/toast";
+import { useGetAccounts } from "~/features/accounts/api/use-get-accounts";
 import SelectAccountDialog from "~/features/accounts/components/SelectAccountDialog.vue";
 import { useSelectAccount } from "~/features/accounts/hooks/use-select-account";
 import { useBulkCreateTransaction } from "~/features/transactions/api/use-bulk-create-transaction";
@@ -36,6 +37,7 @@ const INITIAL_IMPORT_RESULTS = {
 const { onOpen } = useNewTransaction();
 const { confirm, handleClose } = useSelectAccount();
 const { executeCreateMany, error } = useBulkCreateTransaction();
+const { data: accounts } = useGetAccounts();
 
 const route = useRoute();
 const variant = ref<VARIANTS>(VARIANTS.List);
@@ -45,6 +47,7 @@ export interface TransactionFilter {
   payee?: string;
 }
 
+const account = computed(() => route.query.account);
 // Get filter
 const getInitialFilter = (): TransactionFilter => {
   const query = parseQueryToObject(route.query);
@@ -52,6 +55,11 @@ const getInitialFilter = (): TransactionFilter => {
 
   // filter by search
   if (query.payee) Object.assign(filter, { searchTerm: query.payee });
+  if (query.account)
+    Object.assign(filter, {
+      accountId: accounts.value?.find((acc) => acc.title === account.value)
+        ?._id,
+    });
 
   return filter;
 };
@@ -63,9 +71,8 @@ const onFilterChange = (value: TransactionFilter) => {
 };
 
 const initialState = computed(() => ({
-  _sort: getQueryParams(route.query)._sort,
-  _limit: getQueryParams(route.query)._limit,
-  _page: getQueryParams(route.query)._page,
+  ...getQueryParams(route.query),
+  accountId: accounts.value?.find((acc) => acc.title === account.value)?._id,
 }));
 const paginationWatch = computed(() => {
   return URLSearchParamsString(initialState.value);
@@ -88,7 +95,7 @@ const { data, refresh } = useAsyncData(
   "transactions-pagination",
   paginateCategories,
   {
-    watch: [paginationWatch, filter],
+    watch: [paginationWatch, filter, account],
   },
 );
 
