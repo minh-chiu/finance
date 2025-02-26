@@ -15,8 +15,10 @@ A simple finance management app built with **Nuxt.js**, allowing users to track 
 
 ## Demo Video
 
-[![Watch the video](https://www.youtube.com/watch?v=6qaSh86tZ24)](https://www.youtube.com/watch?v=6qaSh86tZ24)
-
+<video controls width="100%">
+  <source src="https://www.youtube.com/watch?v=6qaSh86tZ24" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Screenshots
 
