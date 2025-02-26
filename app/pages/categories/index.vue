@@ -3,7 +3,7 @@ import { categoryApi } from "~/apis/1-category.api";
 import CategoryTable from "~/features/categories/components/CategoryTable.vue";
 import { useNewCategory } from "~/features/categories/hooks/use-new-category";
 import { columns } from "~/pages/categories/column";
-import type { PageInfo } from "~/types/paginate-response.type";
+import type { PaginationInfo } from "~/types/paginate-response.type";
 import { convertStringToRegex } from "~/utils/helpers/data.helper";
 import {
   convertQueryToPaginationParams,
@@ -48,7 +48,7 @@ const initialState = computed(() => ({
 const paginationWatch = computed(() => {
   return URLSearchParamsString(initialState.value);
 });
-const onPageChange = (payload?: Pick<PageInfo, "_page" | "_limit">) =>
+const onPageChange = (payload?: Pick<PaginationInfo, "_page" | "_limit">) =>
   applyQueryToURL(payload);
 
 // call api
@@ -85,7 +85,7 @@ const { data } = useAsyncData("categories-pagination", paginateCategories, {
           v-if="data"
           :columns="columns"
           :data="data.data"
-          :page-info="data.pageInfo"
+          :pagination-info="data.paginationInfo"
           :initial-state="initialState"
           :filter="filter"
           @filter-change="onFilterChange"

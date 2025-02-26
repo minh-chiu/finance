@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { menus } from "~/utils/constants";
 
 const router = useRouter();
 const route = useRoute();

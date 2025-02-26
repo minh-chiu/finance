@@ -43,7 +43,7 @@ const onDelete = () => emits("onDelete");
         <FormControl>
           <Input
             type="text"
-            placeholder="eg: Cash, Bank, Credit Card"
+            placeholder="eg: Deposit, Refund"
             v-bind="componentField"
           />
 

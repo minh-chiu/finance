@@ -9,7 +9,7 @@ import TransactionTable from "~/features/transactions/components/TransactionTabl
 import UploadButton from "~/features/transactions/components/UploadButton.vue";
 import { useNewTransaction } from "~/features/transactions/hooks/use-new-transaction";
 import { columns } from "~/pages/transactions/column";
-import type { PageInfo } from "~/types/paginate-response.type";
+import type { PaginationInfo } from "~/types/paginate-response.type";
 import { convertStringToRegex } from "~/utils/helpers/data.helper";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import {
@@ -70,7 +70,7 @@ const initialState = computed(() => ({
 const paginationWatch = computed(() => {
   return URLSearchParamsString(initialState.value);
 });
-const onPageChange = (payload?: Pick<PageInfo, "_page" | "_limit">) =>
+const onPageChange = (payload?: Pick<PaginationInfo, "_page" | "_limit">) =>
   applyQueryToURL(payload);
 
 // call api
@@ -166,7 +166,7 @@ const onSubmitImport = async (
           v-if="data"
           :columns="columns"
           :data="data.data"
-          :page-info="data.pageInfo"
+          :pagination-info="data.paginationInfo"
           :initial-state="initialState"
           :filter="filter"
           @filter-change="onFilterChange"

@@ -10,7 +10,7 @@ import {
 import AccountToolbar from "~/features/accounts/components/AccountToolbar.vue";
 import { valueUpdater } from "~/lib/utils";
 import type { AccountFilter } from "~/pages/accounts/index.vue";
-import type { PageInfo } from "~/types/paginate-response.type";
+import type { PaginationInfo } from "~/types/paginate-response.type";
 import { applyQueryToURL } from "~/utils/helpers/query.helper";
 import {
   convertSortingToUrl,
@@ -27,12 +27,12 @@ interface Props {
   };
   filter: AccountFilter;
   data: Account[];
-  pageInfo: PageInfo;
+  paginationInfo: PaginationInfo;
 }
 
 interface Emits {
   (e: "filter-change", filter: AccountFilter): void;
-  (e: "page-change", payload?: Pick<PageInfo, "_page" | "_limit">): void;
+  (e: "page-change", payload?: Pick<PaginationInfo, "_page" | "_limit">): void;
 }
 
 const props = defineProps<Props>();
@@ -76,7 +76,7 @@ const table = useVueTable({
 });
 
 const onFilterChange = (value: AccountFilter) => emit("filter-change", value);
-const onPageChange = (value?: Pick<PageInfo, "_page" | "_limit">) =>
+const onPageChange = (value?: Pick<PaginationInfo, "_page" | "_limit">) =>
   emit("page-change", value);
 </script>
 
@@ -94,8 +94,8 @@ const onPageChange = (value?: Pick<PageInfo, "_page" | "_limit">) =>
     </Table>
 
     <DataTablePagination
-      v-if="pageInfo"
-      :page-info="pageInfo"
+      v-if="paginationInfo"
+      :pagination-info="paginationInfo"
       @change="onPageChange"
     />
   </div>

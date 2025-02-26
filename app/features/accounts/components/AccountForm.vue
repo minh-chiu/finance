@@ -42,7 +42,7 @@ const onDelete = () => emits("onDelete");
       :disabled="ísSubmitting"
     >
       <FormItem>
-        <FormLabel>Title</FormLabel>
+        <FormLabel>Name</FormLabel>
 
         <FormControl>
           <Input

@@ -1,7 +1,20 @@
 <script setup lang="ts">
 const firebaseAuth = useFirebaseAuth();
 const authStore = useAuthStore();
-const { authUser } = storeToRefs(authStore);
+const { user } = storeToRefs(authStore);
+
+const router = useRouter();
+
+const goToQueryFrom = (from?: string) => {
+  if (!from) return router.push({ path: "/" });
+
+  const [path = "", queryString = {}] = (from as string).split("?");
+
+  router.push({
+    path: `/${path.replace("/", "")}`,
+    query: Object.fromEntries(new URLSearchParams(queryString)),
+  });
+};
 
 const loginWithGoogle = async (e: MouseEvent) => {
   const idToken = await firebaseAuth.loginWithGoogle(e);
@@ -9,7 +22,7 @@ const loginWithGoogle = async (e: MouseEvent) => {
   await authStore.loginWithGoogle(idToken);
 
   const query = useRoute().query;
-  if (authUser.value) useGoTo().goToQueryFrom(query?.from as string);
+  if (user.value) goToQueryFrom(query?.goto as string);
 };
 </script>
 

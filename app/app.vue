@@ -6,8 +6,8 @@ import SheetProvider from "~/providers/SheetProvider.vue";
 <template>
   <NuxtLayout>
     <NuxtPage />
-  </NuxtLayout>
 
-  <Toaster />
-  <SheetProvider />
+    <Toaster />
+    <SheetProvider />
+  </NuxtLayout>
 </template>

@@ -13,8 +13,24 @@ definePageMeta({ layout: "auth", middleware: "only-visitor" });
 
 const query = useRoute().query;
 const authStore = useAuthStore();
-const { goToQueryFrom, goToSignIn } = useGoTo();
-const { loading, authUser } = storeToRefs(authStore);
+
+const router = useRouter();
+
+const goToQueryFrom = (from?: string) => {
+  if (!from) return router.push({ path: "/" });
+
+  const [path = "", queryString = {}] = (from as string).split("?");
+
+  router.push({
+    path: `/${path.replace("/", "")}`,
+    query: Object.fromEntries(new URLSearchParams(queryString)),
+  });
+};
+
+const goToSignIn = (query: Record<string, any> = {}) => {
+  return router.push({ path: "/sign-in", query });
+};
+const { loading, user } = storeToRefs(authStore);
 
 const { handleSubmit, values, errors } = useForm({
   validationSchema: RegisterSchema,
@@ -69,7 +85,7 @@ const onSubmit = handleSubmit(async (formValues) => {
     acceptTerms,
   });
 
-  if (authUser.value) goToQueryFrom(query?.from as string);
+  if (user.value) goToQueryFrom(query?.from as string);
 });
 
 const progress = ref(0);

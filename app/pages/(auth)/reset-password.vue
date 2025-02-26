@@ -7,7 +7,21 @@ const query = useRoute().query;
 const isPasswordVisible = ref(false);
 const forgotValues = ref<VerifyOtp>();
 
-const { goToQueryFrom, goToSignIn } = useGoTo();
+const router = useRouter();
+const goToQueryFrom = (from?: string) => {
+  if (!from) return router.push({ path: "/" });
+
+  const [path = "", queryString = {}] = (from as string).split("?");
+
+  router.push({
+    path: `/${path.replace("/", "")}`,
+    query: Object.fromEntries(new URLSearchParams(queryString)),
+  });
+};
+
+const goToSignIn = (query: Record<string, any> = {}) => {
+  return router.push({ path: "/sign-in", query });
+};
 
 const goBack = () => {
   isPasswordVisible.value = false;

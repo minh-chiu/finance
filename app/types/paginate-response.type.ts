@@ -1,4 +1,4 @@
-export type PageInfo = {
+export type PaginationInfo = {
   _hasNextPage?: boolean;
   _hasPrevPage?: boolean;
   _limit?: number;
@@ -12,5 +12,5 @@ export type PageInfo = {
 
 export type PaginateResponse<T> = {
   data: T[];
-  pageInfo: PageInfo;
+  paginationInfo: PaginationInfo;
 };

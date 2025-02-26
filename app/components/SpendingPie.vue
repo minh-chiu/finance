@@ -15,7 +15,7 @@ const categories = computed(() => {
   return (
     props.data?.map((d) => ({
       amount: d.value,
-      name: d.category.name,
+      name: d.category?.name || "Others",
     })) || []
   );
 });

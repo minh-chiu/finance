@@ -1,23 +1,36 @@
-import type { AuthUser } from "~/types/pre-built/1-auth";
+import type { User } from "~/types/pre-built/2-user";
+import type { AuthTokens } from "~/types/pre-built/9-token";
 
 export const storageKeys = {
+  user: "_user",
   token: "_app_login",
   carts: "carts",
 };
 
 export const storageHelper = {
-  getAuth(): AuthUser | null {
-    const authString = localStorage.getItem(storageKeys.token);
+  getTokens(): AuthTokens | null {
+    const tokensString = localStorage.getItem(storageKeys.token);
 
-    return authString ? JSON.parse(authString) : null;
+    return tokensString ? JSON.parse(tokensString) : null;
   },
 
-  setAuth(auth: AuthUser) {
-    localStorage.setItem(storageKeys.token, JSON.stringify(auth));
+  setTokens(tokens: AuthTokens) {
+    localStorage.setItem(storageKeys.token, JSON.stringify(tokens));
+  },
+
+  getUser(): User | null {
+    const userString = localStorage.getItem(storageKeys.user);
+
+    return userString ? JSON.parse(userString) : null;
+  },
+
+  setUser(user: User) {
+    localStorage.setItem(storageKeys.user, JSON.stringify(user));
   },
 
   clearAuth() {
     localStorage.removeItem(storageKeys.token);
+    localStorage.removeItem(storageKeys.user);
   },
 
   getCarts() {

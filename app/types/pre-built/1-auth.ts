@@ -1,4 +1,8 @@
-import type { AccountTypeEnum, SendOtpToEnum } from "~/utils/enums/enums";
+import type {
+  AccountTypeEnum,
+  OtpTypeEnum,
+  SendOtpToEnum,
+} from "~/utils/enums";
 import type { VerifyOtp } from "./10-otp";
 import type { User } from "./2-user";
 import type { AuthTokens } from "./9-token";
@@ -9,6 +13,9 @@ export type Register = {
   phone?: string;
   password: string;
   accountType: AccountTypeEnum;
+  otpType?: OtpTypeEnum;
+  sendOtpTo?: SendOtpToEnum;
+  acceptTerms?: boolean;
 };
 
 export type Login = {

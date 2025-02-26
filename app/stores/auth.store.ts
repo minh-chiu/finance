@@ -1,4 +1,5 @@
 import { authApi } from "~/apis/pre-built/1-auth.api";
+import { userApi } from "~/apis/pre-built/2-user.api";
 import { toast } from "~/components/ui/toast";
 import type {
   AuthUser,
@@ -7,130 +8,128 @@ import type {
   ResetPasswordWithOtp,
   ResetPasswordWithToken,
 } from "~/types/pre-built/1-auth";
+import type { User } from "~/types/pre-built/2-user";
+import type { AuthTokens } from "~/types/pre-built/9-token";
 import { AccountTypeEnum } from "~/utils/enums";
 import { handleApiError } from "~/utils/helpers/error-handler.helper";
 import { storageHelper } from "~/utils/helpers/storage.helper";
 
 export const useAuthStore = defineStore("auth", () => {
-  const authUser = ref<AuthUser | null>(storageHelper.getAuth());
+  const tokens = ref<AuthTokens | null>(storageHelper.getTokens());
+  const user = ref<User | null>(storageHelper.getUser());
   const loading = ref<boolean>(false);
 
-  const login = async (input: Login) => {
-    const data = await _asyncHandler(() => authApi.login(input));
-
-    return _updateAuth(data);
+  const clearAuth = () => {
+    tokens.value = null;
+    user.value = null;
+    storageHelper.clearAuth();
   };
 
-  const register = async (input: Register) => {
-    const data = await _asyncHandler(() => authApi.register(input));
-
-    return _updateAuth(data);
-  };
-
-  const loginWithGoogle = async (idToken: string) => {
-    const data = await _asyncHandler(() =>
-      authApi.socialLogin({
-        accountType: AccountTypeEnum.Google,
-        idToken,
-      }),
+  const login = (input: Login) => authenticate(() => authApi.login(input));
+  const register = (input: Register) =>
+    authenticate(() => authApi.register(input));
+  const loginWithGoogle = (idToken: string) =>
+    authenticate(() =>
+      authApi.socialLogin({ accountType: AccountTypeEnum.Google, idToken }),
     );
-
-    return _updateAuth(data);
-  };
 
   const logout = async () => {
-    await authApi.logout().catch((err) => handleApiError(err));
-
-    // navigateTo('/auth/login');
-    return _updateAuth(null);
-  };
-
-  const resetPasswordWithToken = async (input: ResetPasswordWithToken) => {
-    const data = await _asyncHandler(() =>
-      authApi.resetPasswordWithToken(input),
-    );
-
-    return _updateAuth(data);
-  };
-
-  const resetPasswordWithOtp = async (input: ResetPasswordWithOtp) => {
-    const data = await _asyncHandler(() => authApi.resetPasswordWithOtp(input));
-
-    return _updateAuth(data);
-  };
-
-  const getAccessToken = async () => {
-    if (!authUser.value) return null;
-
-    const currentMS = new Date().getTime();
-    const { accessToken, refreshToken } = authUser.value;
-
-    if (accessToken.expiresAt > currentMS) return accessToken.token;
-
-    if (refreshToken.expiresAt < currentMS) return _updateAuth(null);
-
-    await getAuthFromRefreshToken(refreshToken.token);
-
-    return authUser.value?.accessToken?.token || null;
-  };
-
-  const getAuthFromRefreshToken = async (rfToken: string) => {
     try {
-      const data = await authApi.refreshToken(rfToken);
-
-      return _updateAuth(data);
+      await authApi.logout();
+      useRouter().push({
+        path: "/sign-in",
+        query: {
+          goto: useRouter().currentRoute.value.fullPath,
+        },
+      });
     } catch (error) {
       handleApiError(error);
-      return _updateAuth(null);
+    }
+
+    clearAuth();
+  };
+
+  const resetPasswordWithToken = (input: ResetPasswordWithToken) =>
+    authenticate(() => authApi.resetPasswordWithToken(input));
+  const resetPasswordWithOtp = (input: ResetPasswordWithOtp) =>
+    authenticate(() => authApi.resetPasswordWithOtp(input));
+
+  const getAccessToken = async () => {
+    if (!tokens.value) return null;
+
+    const currentMS = Date.now();
+    const { accessToken, refreshToken } = tokens.value;
+
+    if (new Date(accessToken.expiresAt).getTime() > currentMS)
+      return accessToken.token;
+    if (new Date(refreshToken.expiresAt).getTime() < currentMS)
+      return clearAuth();
+
+    await refreshTokens(refreshToken.token);
+    await fetchMe();
+    return tokens.value?.accessToken?.token;
+  };
+
+  const refreshTokens = async (rfToken: string) => {
+    try {
+      const data = await authApi.refreshToken(rfToken);
+      tokens.value = data;
+      storageHelper.setTokens(data);
+
+      return data;
+    } catch (error) {
+      handleApiError(error);
+      clearAuth();
     }
   };
 
   const refreshAuthFromSession = async () => {
-    const isRefreshed = sessionStorage.getItem("refreshed");
-
-    if (isRefreshed && authUser.value) return;
+    if (
+      sessionStorage.getItem("refreshed") ||
+      !tokens.value?.refreshToken?.token
+    )
+      return;
 
     sessionStorage.setItem("refreshed", "true");
-
-    if (!authUser.value?.refreshToken?.token) return;
-
-    await getAuthFromRefreshToken(authUser.value.refreshToken.token);
+    await refreshTokens(tokens.value.refreshToken.token);
   };
 
-  /**
-   * Set auth
-   *
-   * @param data
-   */
-  const _updateAuth = (data: AuthUser | null) => {
-    if (data) {
-      authUser.value = { ...authUser.value, ...data };
-      storageHelper.setAuth(authUser.value);
-
-      return authUser.value;
+  const fetchMe = async () => {
+    try {
+      user.value = await userApi.getMe();
+      storageHelper.setUser(user.value);
+    } catch (error) {
+      handleApiError(error);
+      clearAuth();
     }
 
-    storageHelper.clearAuth();
-    authUser.value = null;
-    return authUser.value;
+    return user.value;
   };
 
   /**
-   * async handler
-   *
-   * @param handler
-   * @returns
+   * Generic async handler for authentication functions
+   * @param handler Function returning a Promise<AuthUser | null>
+   * @returns AuthUser | null
    */
-  const _asyncHandler = async (handler: () => Promise<AuthUser | null>) => {
+  const authenticate = async (handler: () => Promise<AuthUser | null>) => {
     loading.value = true;
-
     try {
-      const res = await handler();
+      const data = await handler();
 
-      return res;
+      if (!data) {
+        toast({ title: "Authentication failed", variant: "destructive" });
+        return clearAuth();
+      }
+
+      tokens.value = data;
+      storageHelper.setTokens(data);
+
+      // Fetch user
+      await fetchMe();
+
+      return data;
     } catch (error) {
-      const { description, title } = handleApiError(error);
-      toast({ description, title, variant: "destructive" });
+      toast({ ...handleApiError(error), variant: "destructive" });
       return null;
     } finally {
       loading.value = false;
@@ -138,7 +137,8 @@ export const useAuthStore = defineStore("auth", () => {
   };
 
   return {
-    authUser,
+    tokens,
+    user,
     loading,
     login,
     register,
@@ -148,5 +148,6 @@ export const useAuthStore = defineStore("auth", () => {
     resetPasswordWithOtp,
     resetPasswordWithToken,
     refreshAuthFromSession,
+    fetchMe,
   };
 });

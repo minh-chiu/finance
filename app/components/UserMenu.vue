@@ -1,19 +1,23 @@
 <script setup lang="ts">
 const authStore = useAuthStore();
-const { authUser, loading } = storeToRefs(authStore);
+const { user, loading } = storeToRefs(authStore);
 
 const onLogout = async () => {
-  authStore.logout();
+  await authStore.logout();
+};
+
+const goToSignIn = (query: Record<string, any> = {}) => {
+  return useRouter().push({ path: "/sign-in", query });
 };
 </script>
 
 <template>
   <div class="relative">
     <Button
-      v-if="!authUser"
+      v-if="!user"
       variant="secondary"
       class="flex cursor-pointer items-center justify-center gap-x-1 border-none bg-white/10 font-light text-white outline-none transition hover:bg-white/20 focus:bg-white/30 focus-visible:ring-transparent focus-visible:ring-offset-0"
-      @click="useGoTo().goToSignIn()"
+      @click="goToSignIn()"
     >
       <span>Sign In</span>
       <span>
@@ -47,7 +51,7 @@ const onLogout = async () => {
       </DropdownMenuTrigger>
 
       <DropdownMenuContent class="w-56" align="end">
-        <template v-if="authUser">
+        <template v-if="user">
           <DropdownMenuItem @click="navigateTo('/trips')">
             My trips
           </DropdownMenuItem>

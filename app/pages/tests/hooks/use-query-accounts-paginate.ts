@@ -15,7 +15,7 @@ export function useQueryAccountsPaginate() {
   return {
     isLoading,
     accounts: computed(() => data.value?.data || []),
-    pageInfo: computed(() => data.value?.pageInfo),
+    paginationInfo: computed(() => data.value?.paginationInfo),
     changePage,
   };
 }

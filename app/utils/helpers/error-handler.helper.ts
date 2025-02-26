@@ -14,7 +14,6 @@ const formatErrorMsg = (errorType: ErrorTypeEnum, details: ErrorDetail[]) => {
 export const handleApiError = (error: any) => {
   let errorType = error.type,
     errorTitle = error.name;
-
   if (error.data) {
     const errorData: Exception = error.data;
 
@@ -31,6 +30,6 @@ export const handleApiError = (error: any) => {
 
   return {
     title: errorTitle,
-    description: errorMsg,
+    description: errorMsg || error.message || "Something went wrong!",
   };
 };

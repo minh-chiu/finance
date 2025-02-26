@@ -9,7 +9,7 @@ const languages: Locale[] = [
   { label: "Japanese", value: "ja", flag: "/flags/japan.svg" },
 ];
 
-const localeSelected = ref(languages[0]);
+const localeSelected = ref(languages[0]!);
 
 const onLocaleSelect = (language: Locale) => {
   localeSelected.value = language;

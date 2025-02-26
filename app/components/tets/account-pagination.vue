@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useQueryAccountsPaginate } from "~/pages/tests/hooks/use-query-accounts-paginate";
 
-const { changePage, pageInfo } = useQueryAccountsPaginate();
+const { changePage, paginationInfo } = useQueryAccountsPaginate();
 
 const onPageChange = (_page?: number) => {
   if (_page) changePage(_page);
@@ -10,13 +10,13 @@ const onPageChange = (_page?: number) => {
 
 <template>
   <Pagination
-    v-if="pageInfo"
+    v-if="paginationInfo"
     v-slot="{ page }"
-    :total="pageInfo._totalData"
+    :total="paginationInfo._totalData"
     :sibling-count="1"
     show-edges
-    :default-page="pageInfo._page"
-    :items-per-page="pageInfo._limit"
+    :default-page="paginationInfo._page"
+    :items-per-page="paginationInfo._limit"
   >
     <PaginationList v-slot="{ items }" class="flex items-center gap-1">
       <PaginationFirst />

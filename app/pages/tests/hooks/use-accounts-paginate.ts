@@ -2,7 +2,7 @@ import { useAsyncData } from "#app";
 import { accountApi } from "~/apis/0-account.api";
 
 export function useAccountsPaginate() {
-  // const pageInfo = useState<PageInfo | undefined>("pageInfo", () => undefined);
+  // const paginationInfo = useState<PaginationInfo | undefined>("paginationInfo", () => undefined);
   const currentPage = useState("currentPage", () => 1);
 
   // Fetch dữ liệu bằng useAsyncData
@@ -37,7 +37,7 @@ export function useAccountsPaginate() {
   return {
     isLoading: computed(() => status.value === "pending"),
     accounts: computed(() => data.value),
-    pageInfo: computed(() => data.value?.pageInfo),
+    paginationInfo: computed(() => data.value?.paginationInfo),
     changePage,
   };
 }

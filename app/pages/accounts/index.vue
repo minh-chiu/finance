@@ -3,7 +3,7 @@ import { accountApi } from "~/apis/0-account.api";
 import AccountTable from "~/features/accounts/components/AccountTable.vue";
 import { useNewAccount } from "~/features/accounts/hooks/use-new-account";
 import { columns } from "~/pages/accounts/column";
-import type { PageInfo } from "~/types/paginate-response.type";
+import type { PaginationInfo } from "~/types/paginate-response.type";
 import { convertStringToRegex } from "~/utils/helpers/data.helper";
 import {
   convertQueryToPaginationParams,
@@ -48,7 +48,7 @@ const initialState = computed(() => ({
 const paginationWatch = computed(() => {
   return URLSearchParamsString(initialState.value);
 });
-const onPageChange = (payload?: Pick<PageInfo, "_page" | "_limit">) =>
+const onPageChange = (payload?: Pick<PaginationInfo, "_page" | "_limit">) =>
   applyQueryToURL(payload);
 
 // call api
@@ -85,7 +85,7 @@ const { data } = useAsyncData("accounts-pagination", paginateAccounts, {
           v-if="data"
           :columns="columns"
           :data="data.data"
-          :page-info="data.pageInfo"
+          :pagination-info="data.paginationInfo"
           :initial-state="initialState"
           :filter="filter"
           @filter-change="onFilterChange"

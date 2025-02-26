@@ -2,12 +2,20 @@
 import { useForm } from "vee-validate";
 import { LoginSchema } from "~/validations/auth.validation";
 
-definePageMeta({ layout: "auth", middleware: ["only-visitor"] });
+definePageMeta({ layout: "auth", middleware: "only-visitor" });
 
-const query = useRoute().query;
-const { goToQueryFrom, goToResetPassword, goToSignUp } = useGoTo();
+const route = useRoute();
+const router = useRouter();
+
+const goToSignUp = (query: Record<string, any> = {}) => {
+  return router.push({ path: "/sign-up", query });
+};
+
+const goToResetPassword = (query: Record<string, any> = {}) => {
+  return router.push({ path: "/reset-password", query });
+};
 const authStore = useAuthStore();
-const { loading, authUser } = storeToRefs(authStore);
+const { loading, user } = storeToRefs(authStore);
 
 const { isFieldDirty, handleSubmit } = useForm({
   validationSchema: LoginSchema,
@@ -15,8 +23,10 @@ const { isFieldDirty, handleSubmit } = useForm({
 
 const onSubmit = handleSubmit(async (values) => {
   await authStore.login(values);
+});
 
-  if (authUser.value) goToQueryFrom(query?.from as string);
+watch(user, () => {
+  if (user.value) return navigateTo("/");
 });
 </script>
 
@@ -78,7 +88,7 @@ const onSubmit = handleSubmit(async (values) => {
               type="button"
               variant="link"
               class="font-normal text-primary md:text-sm"
-              @click="goToResetPassword(query)"
+              @click="goToResetPassword(route.query)"
             >
               Forgot Password ?
             </Button>
@@ -111,7 +121,7 @@ const onSubmit = handleSubmit(async (values) => {
         type="button"
         variant="link"
         class="px-0 text-primary transition hover:underline hover:opacity-90"
-        @click="goToSignUp(query)"
+        @click="goToSignUp(route.query)"
       >
         Sign up
       </Button>
